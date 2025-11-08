@@ -106,7 +106,7 @@ export default function BookCard({ book, onClick }: BookCardProps) {
         <Link
           to={`/book/${book.id}`}
           style={{
-            background: "#3b82f6",
+            background: getGenreColor(book.genre),
             padding: "0.6rem 1.2rem",
             borderRadius: "9999px",
             fontWeight: 600,
