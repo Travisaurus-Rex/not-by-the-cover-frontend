@@ -1,11 +1,13 @@
 import React, { useState } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import { books } from "../data/books.ts";
+import { getGenreColor } from "../utils/getGenreColor.ts";
 
 const styles: Record<string, React.CSSProperties> = {
   page: {
     position: "relative",
     height: "100vh",
+    width: "100%",
     background: "#0a0a0a",
     display: "flex",
     justifyContent: "center",
@@ -18,7 +20,7 @@ const styles: Record<string, React.CSSProperties> = {
     padding: "0 2rem",
   },
   hook: {
-    fontSize: "2.8rem",
+    fontSize: "5rem",
     lineHeight: 1.2,
     fontWeight: 700,
     letterSpacing: "-0.02em",
@@ -76,44 +78,66 @@ const styles: Record<string, React.CSSProperties> = {
   },
 };
 
+const containerVariants = {
+  hidden: {},
+  visible: {
+    transition: {
+      staggerChildren: 0.07,
+    },
+  },
+};
+
+const itemVariants = {
+  hidden: { opacity: 0, y: -25 },
+  visible: {
+    opacity: 1,
+    y: 0,
+    transition: {
+      duration: 0.32,
+    },
+  },
+  exit: {
+    opacity: 0,
+    y: 25,
+    transition: {
+      duration: 0.25,
+    },
+  },
+};
+
+
 export default function Discover() {
   const [index, setIndex] = useState(0);
   const current = books[index];
+  const color = getGenreColor(current.genre);
 
   const nextBook = () => setIndex((i) => (i + 1) % books.length);
   const viewBook = () => alert(`Open details for: ${current.title}`);
 
   return (
     <div style={styles.page}>
-      {/* background glow */}
-      <AnimatePresence mode="popLayout">
-        <motion.div
-          key={current.color}
-          style={{
-            ...styles.blob,
-            width: "70vw",
-            height: "70vw",
-            background: current.color,
-          }}
-          initial={{ opacity: 0 }}
-          animate={{ opacity: 0.25, scale: [1, 1.1, 1] }}
-          exit={{ opacity: 0 }}
-          transition={{
-            duration: 1.5,
-            repeat: Infinity,
-            repeatType: "reverse",
-          }}
-        />
-      </AnimatePresence>
+      {/* background blob, slow + subtle so it doesn't choke */}
+      <motion.div
+        style={{
+          ...styles.blob,
+          width: "70vw",
+          height: "70vw",
+          background: color,
+        }}
+        animate={{
+          x: [0, 20, -10, 0],
+          y: [0, -15, 10, 0],
+        }}
+        transition={{ duration: 25, repeat: Infinity, ease: "linear" }}
+      />
 
-      {/* main content */}
       <AnimatePresence mode="wait">
         <motion.div
           key={index}
-          initial={{ opacity: 0, scale: 0.95, filter: "blur(10px)" }}
-          animate={{ opacity: 1, scale: 1, filter: "blur(0px)" }}
-          exit={{ opacity: 0, scale: 1.05, filter: "blur(8px)" }}
-          transition={{ duration: 0.7, ease: "easeInOut" }}
+          variants={containerVariants}
+          initial="hidden"
+          animate="visible"
+          exit="exit"
           style={{
             position: "relative",
             zIndex: 5,
@@ -122,37 +146,44 @@ export default function Discover() {
             alignItems: "center",
           }}
         >
-          <h1 style={styles.hook}>{current.title}</h1>
-          <p style={styles.summary}>{current.summary}</p>
-          <p style={styles.genre}>{current.genre}</p>
 
-          <div style={styles.tags}>
-            {current.tags.map((tag, i: number) => (
-              <motion.span
-                key={i}
-                style={styles.tag}
-                initial={{ opacity: 0, y: 10 }}
-                animate={{ opacity: 1, y: 0 }}
-                transition={{ delay: 0.1 * i, duration: 0.25 }}
-              >
+          {/* hook */}
+          <motion.h1 style={styles.hook} variants={itemVariants}>
+            {current.hook}
+          </motion.h1>
+
+          {/* summary */}
+          <motion.p style={styles.summary} variants={itemVariants}>
+            {current.summary}
+          </motion.p>
+
+          {/* genre */}
+          <motion.p style={styles.genre} variants={itemVariants}>
+            {current.genre}
+          </motion.p>
+
+          {/* tags (whole group enters in order too) */}
+          <motion.div style={styles.tags} variants={itemVariants}>
+            {current.tags.map((tag, i) => (
+              <motion.span key={i} style={styles.tag} variants={itemVariants}>
                 {tag}
               </motion.span>
             ))}
-          </div>
+          </motion.div>
 
-          {/* buttons row */}
-          <div style={styles.buttonRow}>
+          {/* buttons */}
+          <motion.div style={styles.buttonRow} variants={itemVariants}>
             <motion.button
               style={{
                 ...styles.buttonBase,
-                background: current.color,
+                background: color,
                 border: "1px solid transparent",
                 color: "#fff",
               }}
               whileHover={{
                 scale: 1.05,
-                backgroundColor: current.color,
-                filter: "brightness(1.1)",
+                backgroundColor: color,
+                filter: "brightness(1.08)",
               }}
               whileTap={{ scale: 0.97 }}
               onClick={viewBook}
@@ -176,7 +207,7 @@ export default function Discover() {
             >
               Next →
             </motion.button>
-          </div>
+          </motion.div>
         </motion.div>
       </AnimatePresence>
     </div>
