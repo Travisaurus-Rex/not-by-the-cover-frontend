@@ -2,10 +2,13 @@ import { BrowserRouter, Routes, Route, Link } from "react-router-dom";
 import Home from "./components/Home";
 import Discover from "./components/Discover";
 import Browse from "./components/Browse";
+import ScrollToTop from "./components/ScrollToTop";
+import BookDetail from "./components/BookDetail";
 
 export default function App() {
   return (
     <BrowserRouter>
+    <ScrollToTop />
       <nav
         style={{
           position: "fixed",
@@ -33,6 +36,7 @@ export default function App() {
         <Route path="/" element={<Home />} />
         <Route path="/discover" element={<Discover />} />
         <Route path="/browse" element={<Browse />} />
+        <Route path="/book/:id" element={<BookDetail />} />
       </Routes>
     </BrowserRouter>
   );
