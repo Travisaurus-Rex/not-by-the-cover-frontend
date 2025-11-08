@@ -2,6 +2,7 @@ import React, { useState } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import { books } from "../data/books.ts";
 import { getGenreColor } from "../utils/getGenreColor.ts";
+import { Link } from "react-router-dom";
 
 const styles: Record<string, React.CSSProperties> = {
   page: {
@@ -111,7 +112,6 @@ export default function Discover() {
   const color = getGenreColor(current.genre);
 
   const nextBook = () => setIndex((i) => (i + 1) % books.length);
-  const viewBook = () => alert(`Open details for: ${current.title}`);
 
   return (
     <div style={styles.page}>
@@ -161,23 +161,21 @@ export default function Discover() {
             ))}
           </motion.div>
           <motion.div style={styles.buttonRow} variants={itemVariants}>
-            <motion.button
+            <Link
+              to={`/book/${current.id}`}
               style={{
                 ...styles.buttonBase,
                 background: color,
                 border: "1px solid transparent",
                 color: "#fff",
+                textDecoration: "none",
+                display: "inline-flex",
+                alignItems: "center",
+                justifyContent: "center",
               }}
-              whileHover={{
-                scale: 1.05,
-                backgroundColor: color,
-                filter: "brightness(1.08)",
-              }}
-              whileTap={{ scale: 0.97 }}
-              onClick={viewBook}
             >
               View More
-            </motion.button>
+            </Link>
 
             <motion.button
               style={{

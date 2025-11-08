@@ -1,3 +1,4 @@
+import { Link } from "react-router-dom";
 import { getGenreColor } from "../utils/getGenreColor";
 
 type BookCardProps = {
@@ -102,19 +103,21 @@ export default function BookCard({ book, onClick }: BookCardProps) {
       </div>
 
       <div style={{ marginTop: "1.5rem", textAlign: "right" }}>
-        <button
+        <Link
+          to={`/book/${book.id}`}
           style={{
-            background: color,
-            color: "#fff",
-            border: "none",
+            background: "#3b82f6",
+            padding: "0.6rem 1.2rem",
             borderRadius: "9999px",
-            padding: "0.6rem 1.4rem",
             fontWeight: 600,
-            cursor: "pointer",
+            color: "#fff",
+            textDecoration: "none",
+            marginTop: "1rem",
+            display: "inline-block"
           }}
         >
           View Details →
-        </button>
+        </Link>
       </div>
     </div>
   );
