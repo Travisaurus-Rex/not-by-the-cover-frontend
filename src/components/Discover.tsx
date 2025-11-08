@@ -105,7 +105,6 @@ const itemVariants = {
   },
 };
 
-
 export default function Discover() {
   const [index, setIndex] = useState(0);
   const current = books[index];
@@ -116,7 +115,6 @@ export default function Discover() {
 
   return (
     <div style={styles.page}>
-      {/* background blob, slow + subtle so it doesn't choke */}
       <motion.div
         style={{
           ...styles.blob,
@@ -146,23 +144,15 @@ export default function Discover() {
             alignItems: "center",
           }}
         >
-
-          {/* hook */}
           <motion.h1 style={styles.hook} variants={itemVariants}>
             {current.hook}
           </motion.h1>
-
-          {/* summary */}
           <motion.p style={styles.summary} variants={itemVariants}>
             {current.summary}
           </motion.p>
-
-          {/* genre */}
           <motion.p style={styles.genre} variants={itemVariants}>
             {current.genre}
           </motion.p>
-
-          {/* tags (whole group enters in order too) */}
           <motion.div style={styles.tags} variants={itemVariants}>
             {current.tags.map((tag, i) => (
               <motion.span key={i} style={styles.tag} variants={itemVariants}>
@@ -170,8 +160,6 @@ export default function Discover() {
               </motion.span>
             ))}
           </motion.div>
-
-          {/* buttons */}
           <motion.div style={styles.buttonRow} variants={itemVariants}>
             <motion.button
               style={{
