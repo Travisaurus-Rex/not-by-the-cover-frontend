@@ -1,6 +1,7 @@
 import { useState } from "react";
-import { useParams, Link } from "react-router-dom";
+import { useParams } from "react-router-dom";
 import { books } from "../data/books";
+import BookBackButton from "./BookBackButton";
 
 export default function BookDetail() {
   const { id } = useParams();
@@ -11,9 +12,7 @@ export default function BookDetail() {
     return (
       <div style={{ color: "#fff", textAlign: "center", padding: "4rem" }}>
         <h2>Book not found</h2>
-        <Link to="/" style={{ color: "#3b82f6" }}>
-          ← Back to Discover
-        </Link>
+        <BookBackButton />
       </div>
     );
   }
@@ -163,18 +162,7 @@ export default function BookDetail() {
           </p>
         ))}
 
-        <Link
-          to="/browse"
-          style={{
-            display: "inline-block",
-            marginTop: "1rem",
-            color: "#3b82f6",
-            textDecoration: "none",
-            fontWeight: 600,
-          }}
-        >
-          ← Back to Browse
-        </Link>
+        <BookBackButton />
       </div>
     </div>
   );

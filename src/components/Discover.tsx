@@ -163,6 +163,7 @@ export default function Discover() {
           <motion.div style={styles.buttonRow} variants={itemVariants}>
             <Link
               to={`/book/${current.id}`}
+              state={{ from: 'discover'}}
               style={{
                 ...styles.buttonBase,
                 background: color,

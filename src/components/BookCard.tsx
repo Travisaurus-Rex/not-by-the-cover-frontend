@@ -98,6 +98,7 @@ export default function BookCard({ book, onClick }: BookCardProps) {
       <div style={{ marginTop: "1.5rem", textAlign: "right" }}>
         <Link
           to={`/book/${book.id}`}
+          state={{ from: 'browse'}}
           style={{
             background: getGenreColor(book.genre),
             padding: "0.6rem 1.2rem",
