@@ -19,6 +19,7 @@ const styles: Record<string, React.CSSProperties> = {
     fontFamily:
       "system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif",
     padding: "0 2rem",
+    boxSizing: "border-box"
   },
   hook: {
     fontSize: "5rem",

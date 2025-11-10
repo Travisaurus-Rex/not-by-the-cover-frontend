@@ -1,5 +1,4 @@
 import { motion } from "framer-motion";
-import Discover from "./Discover";
 
 export default function Home() {
   return (
@@ -85,12 +84,7 @@ export default function Home() {
             <motion.a
                 whileHover={{ scale: 1.05 }}
                 whileTap={{ scale: 0.97 }}
-                href="#discover-preview"
-                onClick={(e) => {
-                  e.preventDefault();
-                  const section = document.querySelector("#discover-preview");
-                  section?.scrollIntoView({ behavior: "smooth" });
-                }}
+                href="/browse"
                 style={{
                 background: "rgba(255,255,255,0.08)",
                 padding: "0.9rem 2rem",
@@ -104,34 +98,9 @@ export default function Home() {
                 justifyContent: "center",
                 }}
             >
-                Scroll Down ↓
+                Browse
             </motion.a>
         </motion.div>
-
-        <motion.div
-          animate={{ y: [0, 8, 0] }}
-          transition={{ repeat: Infinity, duration: 2 }}
-          style={{
-            position: "absolute",
-            bottom: "2rem",
-            fontSize: "1.5rem",
-            opacity: 0.6,
-          }}
-        >
-          ↓
-        </motion.div>
-      </section>
-
-      <section
-        id="discover-preview"
-        style={{
-          minHeight: "100vh",
-          display: "flex",
-          alignItems: "center",
-          justifyContent: "center",
-        }}
-      >
-        <Discover />
       </section>
     </div>
   );

@@ -27,6 +27,9 @@ export default function App() {
         <Link to="/" style={{ color: "#fff", textDecoration: "none" }}>
           Home
         </Link>
+        <Link to="/discover" style={{ color: "#fff", textDecoration: "none" }}>
+          Discover
+        </Link>
         <Link to="/browse" style={{ color: "#fff", textDecoration: "none" }}>
           Browse
         </Link>
