@@ -1,16 +1,9 @@
 import { Link } from "react-router-dom";
 import { getGenreColor } from "../utils/getGenreColor";
+import type { Book } from "../data/book";
 
 type BookCardProps = {
-  book: {
-    id: number;
-    title: string;
-    hook: string;
-    summary: string;
-    genre: string;
-    tags: string[];
-    color: string;
-  };
+  book: Book;
   onClick?: () => void;
 };
 
